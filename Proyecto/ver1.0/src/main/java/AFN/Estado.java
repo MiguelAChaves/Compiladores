@@ -27,6 +27,7 @@ public class Estado {
         edoAcep = false;
         token = "-1";
         Transiciones = new HashSet<Transicion>();
+        Transiciones.clear();
     }
 
     public int getId() {
