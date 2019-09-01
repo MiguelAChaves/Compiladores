@@ -53,6 +53,11 @@ public class Estado {
     public void setToken(String token) {
         this.token = token;
     }
+    
+    public void setTransición(Character s, Estado estado){
+        Transicion aux = new Transicion(s, estado);
+        Transiciones.add(aux);
+    }
    
     
 }
