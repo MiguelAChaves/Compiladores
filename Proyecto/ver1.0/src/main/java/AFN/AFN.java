@@ -11,6 +11,7 @@
  */
 package AFN;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class AFN {
@@ -36,7 +37,7 @@ public class AFN {
         EstadosAceptacion.clear();
     }
     
-    public AFN(Character s){
+    public AFN(char s){
         EstadoInicial = new Estado();
         Estado EstadoFinal = new Estado();
         EstadoFinal.edoAcep = true;
@@ -49,4 +50,28 @@ public class AFN {
         Estados.add(EstadoFinal);
         EstadosAceptacion.add(EstadoFinal);
     }
+
+    @Override
+    public String toString() {
+        ArrayList<String> t = new ArrayList<>();
+        Estados.forEach((var) -> {
+            var.Transiciones.forEach((var2) -> {
+                t.add("q" + var.getId() + " --> " + var2 + "\n");
+            });
+        });
+        return "----------------------------------------------\n"
+                + "Detalles del Automata\n"
+                + "----------------------------------------------\n"
+                + "Alfabeto: " + Alfabeto.toString() + "\n"
+                + "----------------------------------------------\n"
+                + "Estados: " + Estados.toString() +  "\n"
+                + "----------------------------------------------\n"
+                + "Estado inicial: " + EstadoInicial.toString() + "\n"
+                + "----------------------------------------------\n"
+                + "Estados de aceptación: " + EstadosAceptacion.toString() + "\n" 
+                + "----------------------------------------------\n"
+                + "Transiciones\n" + t
+                + "----------------------------------------------\n";
+    }
+    
 }

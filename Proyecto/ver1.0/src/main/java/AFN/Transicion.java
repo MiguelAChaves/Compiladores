@@ -32,6 +32,11 @@ public class Transicion {
     public char getMaxSimbolo() {
         return maxSimbolo;
     }
+
+    @Override
+    public String toString() {
+        return "["+ minSimbolo + "] -> q" + edoSiguiente.getId();
+    }
     
     
     

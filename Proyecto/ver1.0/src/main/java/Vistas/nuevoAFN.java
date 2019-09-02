@@ -113,7 +113,7 @@ public class nuevoAFN extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Agregar nuevo Automata
-        AFN nuevoAFN = new AFN(jTextField1.toString().charAt(0));
+        AFN nuevoAFN = new AFN(jTextField1.getText().charAt(0));
         conjuntoAFN.add(nuevoAFN);
         System.out.println("Automata Creado");
         this.setVisible(false);

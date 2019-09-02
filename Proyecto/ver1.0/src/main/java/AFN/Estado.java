@@ -26,7 +26,7 @@ public class Estado {
         id = nextId.incrementAndGet();
         edoAcep = false;
         token = "-1";
-        Transiciones = new HashSet<Transicion>();
+        Transiciones = new HashSet<>();
         Transiciones.clear();
     }
 
@@ -54,10 +54,14 @@ public class Estado {
         this.token = token;
     }
     
-    public void setTransición(Character s, Estado estado){
+    public void setTransición(char s, Estado estado){
         Transicion aux = new Transicion(s, estado);
-        Transiciones.add(aux);
+        this.Transiciones.add(aux);
     }
-   
+
+    @Override
+    public String toString() {
+        return "q" + id;
+    }
     
 }
