@@ -15,15 +15,24 @@ import java.util.LinkedList;
 public class MenuPrincipal extends javax.swing.JFrame {
 
     private LinkedList<AFN> conjuntoAFN;
+    private LinkedList<AFN> conjuntoAFN_AFD;
     /**
      * Creates new form MenuPrincipal
      * @param conjuntoAFN
+     * @param conjuntoAFN_AFD
      */
+    
     public MenuPrincipal(LinkedList<AFN> conjuntoAFN) {
         initComponents();
         this.setTitle("Mc. Compiler v1.0");
         this.conjuntoAFN=conjuntoAFN;
-
+    }
+    
+    public MenuPrincipal(LinkedList<AFN> conjuntoAFN, LinkedList<AFN> conjuntoAFN_AFD) {
+        initComponents();
+        this.setTitle("Mc. Compiler v1.0");
+        this.conjuntoAFN=conjuntoAFN;
+        this.conjuntoAFN_AFD=conjuntoAFN_AFD;
     }
 
     /**
@@ -102,17 +111,37 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu3.setToolTipText("");
 
         jMenuItem5.setText("Positiva");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem5);
 
         jMenuItem7.setText("Kleene");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
 
         jMenuItem8.setText("Opcional");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem8);
 
         jMenu1.add(jMenu3);
 
         jMenuItem6.setText("Union Especial");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem6);
 
         jMenuBar1.add(jMenu1);
@@ -153,7 +182,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        // Generar el AFD
+        if(conjuntoAFN_AFD.isEmpty()){
+            System.out.println("Se necesita aplicar la UnionEspecial");
+        }else{
+            this.setVisible(false);
+            //AFN_to_AFD b = new AFN_to_AFD(conjuntoAFN_AFD, this);
+            //b.setVisible(true);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -183,6 +219,34 @@ public class MenuPrincipal extends javax.swing.JFrame {
         unionAFN c = new unionAFN(conjuntoAFN, this);
         c.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // Union Especial
+        this.setVisible(false);
+        unionEspecialAFN c = new unionEspecialAFN(conjuntoAFN, conjuntoAFN_AFD, this);
+        c.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // Cerradura Positiva
+        this.setVisible(false);
+        cPositivaAFN c = new cPositivaAFN(conjuntoAFN, this);
+        c.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // Cerradura Kleene
+        this.setVisible(false);
+        cKleeneAFN c = new cKleeneAFN(conjuntoAFN, this);
+        c.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // Cerradura Opcional
+        this.setVisible(false);
+        cOpcionalAFN c = new cOpcionalAFN(conjuntoAFN, this);
+        c.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

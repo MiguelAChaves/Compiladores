@@ -20,8 +20,9 @@ public class main {
         System.out.println("-------------------------------------------------");
         //Leer AFN en archivos
         LinkedList<AFN> ConjuntoAFN = new LinkedList<> ();
+        LinkedList<AFN> ConjuntoAFN_AFD = new LinkedList<> ();
         //Invocar al MenuPrincipal
-        MenuPrincipal m = new MenuPrincipal(ConjuntoAFN);
+        MenuPrincipal m = new MenuPrincipal(ConjuntoAFN, ConjuntoAFN_AFD);
         m.setVisible(true);
     }
 }
