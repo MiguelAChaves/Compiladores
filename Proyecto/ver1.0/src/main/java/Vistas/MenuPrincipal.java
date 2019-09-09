@@ -35,6 +35,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem4 = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -42,7 +43,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+
+        jMenuItem4.setText("jMenuItem4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,6 +89,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setText("Union");
+        jMenu1.add(jMenuItem3);
+
+        jMenu3.setText("Cerraduras");
+        jMenu3.setToolTipText("");
+
+        jMenuItem5.setText("Positiva");
+        jMenu3.add(jMenuItem5);
+
+        jMenuItem7.setText("Kleene");
+        jMenu3.add(jMenuItem7);
+
+        jMenuItem8.setText("Opcional");
+        jMenu3.add(jMenuItem8);
+
+        jMenu1.add(jMenu3);
+
+        jMenuItem6.setText("Union Especial");
+        jMenu1.add(jMenuItem6);
 
         jMenuBar1.add(jMenu1);
 
@@ -150,8 +179,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     // End of variables declaration//GEN-END:variables
 }
