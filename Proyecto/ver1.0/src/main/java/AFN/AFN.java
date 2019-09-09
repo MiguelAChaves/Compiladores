@@ -50,6 +50,10 @@ public class AFN {
         Estados.add(EstadoFinal);
         EstadosAceptacion.add(EstadoFinal);
     }
+
+    public void setEstadoInicial(Estado EstadoInicial) {
+        this.EstadoInicial = EstadoInicial;
+    }
     
     public void setConcat(AFN AFN2){
         for(Estado e: this.EstadosAceptacion){
@@ -64,7 +68,51 @@ public class AFN {
         this.Estados.addAll(AFN2.Estados);
         this.Alfabeto.addAll(AFN2.Alfabeto);
         this.EstadosAceptacion.addAll(AFN2.EstadosAceptacion);
+    }
+    
+    public static AFN setUnion(AFN afn1, AFN afn2) {
+        AFN auxAFN = new AFN();
         
+        /*Agregamos el alfabeto*/
+        auxAFN.Alfabeto.addAll(afn1.Alfabeto);
+        auxAFN.Alfabeto.addAll(afn2.Alfabeto);
+        
+        /* Creamos el estado inicial*/
+        Estado nuevoInicio = new Estado();
+        /* Creamos el estado final*/
+        Estado nuevoFinal = new Estado();
+        nuevoFinal.setEdoAcep(true);
+        /* Creamos las 2 transiciones para los 2 automatas*/
+        nuevoInicio.setTransición(Epsilon, afn1.EstadoInicial);
+        nuevoInicio.setTransición(Epsilon, afn2.EstadoInicial);
+        
+        /* Agregamos el estado a la nueva lista de Estados*/
+        auxAFN.setEstadoInicial(nuevoInicio);
+        auxAFN.Estados.add(nuevoInicio);
+        
+        /* Agregar los estados y transiciones en AFN1*/
+        for(Estado e: afn1.Estados){
+            if(e.isEdoAcep()){
+                e.setEdoAcep(false);
+                e.setTransición(Epsilon, nuevoFinal);
+            }
+            auxAFN.Estados.add(e);
+        }
+        
+        /* Agregar los estados y transiciones en AFN2*/
+        for(Estado e: afn2.Estados){
+            if(e.isEdoAcep()){
+                e.setEdoAcep(false);
+                e.setTransición(Epsilon, nuevoFinal);
+            }
+            auxAFN.Estados.add(e);
+        }
+       
+        /* Agregamos el estado final */
+        auxAFN.Estados.add(nuevoFinal);
+        auxAFN.EstadosAceptacion.add(nuevoFinal);
+        
+        return auxAFN;
     }
 
     @Override
