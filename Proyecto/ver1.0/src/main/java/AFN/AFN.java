@@ -103,6 +103,69 @@ public class AFN {
         return auxAFN;
     }
     
+    public static AFN setCKleene(AFN AFN_1){
+        AFN auxAFN = new AFN();
+        /*Agregamos el alfabeto*/
+        auxAFN.Alfabeto.addAll(AFN_1.Alfabeto);
+        /* Creamos el estado inicial*/
+        Estado nuevoInicio = new Estado();
+        /* Creamos el estado final*/
+        Estado nuevoFinal = new Estado();
+        nuevoFinal.setEdoAcep(true);
+        /* Creamos las 2 transiciones para los 2 automatas*/
+        nuevoInicio.setTransición(Epsilon, AFN_1.EstadoInicial);
+        nuevoInicio.setTransición(Epsilon, nuevoFinal);
+        /* Agregamos el estado a la nueva lista de Estados*/
+        auxAFN.setEstadoInicial(nuevoInicio);
+        auxAFN.Estados.add(nuevoInicio);
+        /* Agregar transicion entre los estados inicial final anteriores*/
+        /* Agregar los estados y transiciones en AFN1*/
+        for(Estado e: AFN_1.Estados){
+            if(e.isEdoAcep()){
+                e.setEdoAcep(false);
+                e.setTransición(Epsilon, nuevoFinal);
+                e.setTransición(Epsilon, AFN_1.EstadoInicial);
+            }
+            auxAFN.Estados.add(e);
+        }
+        /* Agregamos el estado final */
+        auxAFN.Estados.add(nuevoFinal);
+        auxAFN.EstadosAceptacion.add(nuevoFinal);
+        
+        return auxAFN;
+    }
+    
+    public static AFN setCOpcional(AFN AFN_1){
+        AFN auxAFN = new AFN();
+        /*Agregamos el alfabeto*/
+        auxAFN.Alfabeto.addAll(AFN_1.Alfabeto);
+        /* Creamos el estado inicial*/
+        Estado nuevoInicio = new Estado();
+        /* Creamos el estado final*/
+        Estado nuevoFinal = new Estado();
+        nuevoFinal.setEdoAcep(true);
+        /* Creamos las 2 transiciones para los 2 automatas*/
+        nuevoInicio.setTransición(Epsilon, AFN_1.EstadoInicial);
+        nuevoInicio.setTransición(Epsilon, nuevoFinal);
+        /* Agregamos el estado a la nueva lista de Estados*/
+        auxAFN.setEstadoInicial(nuevoInicio);
+        auxAFN.Estados.add(nuevoInicio);
+        /* Agregar transicion entre los estados inicial final anteriores*/
+        /* Agregar los estados y transiciones en AFN1*/
+        for(Estado e: AFN_1.Estados){
+            if(e.isEdoAcep()){
+                e.setEdoAcep(false);
+                e.setTransición(Epsilon, nuevoFinal);
+            }
+            auxAFN.Estados.add(e);
+        }
+        /* Agregamos el estado final */
+        auxAFN.Estados.add(nuevoFinal);
+        auxAFN.EstadosAceptacion.add(nuevoFinal);
+        
+        return auxAFN;
+    }
+    
     public static AFN setUnion(AFN afn1, AFN afn2) {
         AFN auxAFN = new AFN();
         
