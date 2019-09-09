@@ -19,7 +19,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form MenuPrincipal
      * @param conjuntoAFN
-     * @param conjuntoAFN_AFD
      */
     
     public MenuPrincipal(LinkedList<AFN> conjuntoAFN) {

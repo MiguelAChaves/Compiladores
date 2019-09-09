@@ -6,6 +6,7 @@
 package Vistas;
 
 import AFN.AFN;
+import static AFN.AFN.setCPositiva;
 import java.util.LinkedList;
 
 /**
@@ -48,6 +49,11 @@ public class cPositivaAFN extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Aceptar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Regresar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +102,22 @@ public class cPositivaAFN extends javax.swing.JFrame {
         this.setVisible(false);
         m.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int i = 0;
+        AFN aux = new AFN();
+        if(cbAut.getSelectedItem()!=null){
+            for(int n=0; n<conjuntoAFN.size();n++){
+                if(cbAut.getSelectedItem().equals("Autómata " + n))
+                    i = n;
+            }
+        }
+        aux = setCPositiva(conjuntoAFN.get(i));
+        conjuntoAFN.remove(i);
+        conjuntoAFN.add(aux);
+        this.setVisible(false);
+        m.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbAut;

@@ -20,7 +20,7 @@ public class AFN {
      * Establecimiento de constantes
      * @param Epsilon: Caracter vacio.
      */
-    static final char Epsilon = 0x00;
+    static final char Epsilon = 'ε';
    
     
     HashSet<Estado> Estados;
@@ -55,6 +55,8 @@ public class AFN {
         this.EstadoInicial = EstadoInicial;
     }
     
+    
+    
     public void setConcat(AFN AFN2){
         for(Estado e: this.EstadosAceptacion){
             for(Transicion t: AFN2.EstadoInicial.Transiciones){
@@ -68,6 +70,37 @@ public class AFN {
         this.Estados.addAll(AFN2.Estados);
         this.Alfabeto.addAll(AFN2.Alfabeto);
         this.EstadosAceptacion.addAll(AFN2.EstadosAceptacion);
+    }
+    
+    public static AFN setCPositiva(AFN AFN_1){
+        AFN auxAFN = new AFN();
+        /*Agregamos el alfabeto*/
+        auxAFN.Alfabeto.addAll(AFN_1.Alfabeto);
+        /* Creamos el estado inicial*/
+        Estado nuevoInicio = new Estado();
+        /* Creamos el estado final*/
+        Estado nuevoFinal = new Estado();
+        nuevoFinal.setEdoAcep(true);
+        /* Creamos las 2 transiciones para los 2 automatas*/
+        nuevoInicio.setTransición(Epsilon, AFN_1.EstadoInicial);
+        /* Agregamos el estado a la nueva lista de Estados*/
+        auxAFN.setEstadoInicial(nuevoInicio);
+        auxAFN.Estados.add(nuevoInicio);
+        /* Agregar transicion entre los estados inicial final anteriores*/
+        /* Agregar los estados y transiciones en AFN1*/
+        for(Estado e: AFN_1.Estados){
+            if(e.isEdoAcep()){
+                e.setEdoAcep(false);
+                e.setTransición(Epsilon, nuevoFinal);
+                e.setTransición(Epsilon, AFN_1.EstadoInicial);
+            }
+            auxAFN.Estados.add(e);
+        }
+        /* Agregamos el estado final */
+        auxAFN.Estados.add(nuevoFinal);
+        auxAFN.EstadosAceptacion.add(nuevoFinal);
+        
+        return auxAFN;
     }
     
     public static AFN setUnion(AFN afn1, AFN afn2) {
