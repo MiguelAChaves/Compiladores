@@ -50,13 +50,29 @@ public class AFN {
         Estados.add(EstadoFinal);
         EstadosAceptacion.add(EstadoFinal);
     }
+    
+    public void setConcat(AFN AFN2){
+        for(Estado e: this.EstadosAceptacion){
+            for(Transicion t: AFN2.EstadoInicial.Transiciones){
+                e.setTransición(t.minSimbolo, t.getEdoSiguiente());
+                AFN2.Estados.remove(AFN2.EstadoInicial);
+            }
+            e.setEdoAcep(false);
+            EstadosAceptacion.remove(e);
+            AFN2.Estados.remove(e);
+        }
+        this.Estados.addAll(AFN2.Estados);
+        this.Alfabeto.addAll(AFN2.Alfabeto);
+        this.EstadosAceptacion.addAll(AFN2.EstadosAceptacion);
+        
+    }
 
     @Override
     public String toString() {
         ArrayList<String> t = new ArrayList<>();
         Estados.forEach((var) -> {
             var.Transiciones.forEach((var2) -> {
-                t.add("q" + var.getId() + " --> " + var2 + "\n");
+                t.add("q" + var.getId() + " --> " + var2);
             });
         });
         return "----------------------------------------------\n"
@@ -70,7 +86,7 @@ public class AFN {
                 + "----------------------------------------------\n"
                 + "Estados de aceptación: " + EstadosAceptacion.toString() + "\n" 
                 + "----------------------------------------------\n"
-                + "Transiciones\n" + t
+                + "Transiciones\n" + t + "\n"
                 + "----------------------------------------------\n";
     }
     
