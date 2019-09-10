@@ -50,12 +50,21 @@ public class AFN {
         Estados.add(EstadoFinal);
         EstadosAceptacion.add(EstadoFinal);
     }
-
+    
+    public AFN(Estado s){
+        Estados = new HashSet<>();
+        Estados.clear();
+        Alfabeto = new HashSet<>();
+        Alfabeto.clear();
+        EstadosAceptacion = new HashSet<>();
+        EstadosAceptacion.clear();
+        EstadoInicial = s;
+        Estados.add(EstadoInicial);
+    }
+    
     public void setEstadoInicial(Estado EstadoInicial) {
         this.EstadoInicial = EstadoInicial;
     }
-    
-    
     
     public void setConcat(AFN AFN2){
         for(Estado e: this.EstadosAceptacion){
@@ -211,6 +220,19 @@ public class AFN {
         return auxAFN;
     }
 
+    public void setEspecial(AFN AFN2, String token){
+        this.EstadoInicial.setTransición(Epsilon, AFN2.EstadoInicial);
+        for(Estado e: AFN2.Estados){
+            if(e.isEdoAcep()){
+                e.setToken(token);
+                this.EstadosAceptacion.add(e);
+            }
+            this.Estados.add(e);
+        }
+        
+        this.Alfabeto.addAll(AFN2.Alfabeto);
+    }
+    
     @Override
     public String toString() {
         ArrayList<String> t = new ArrayList<>();

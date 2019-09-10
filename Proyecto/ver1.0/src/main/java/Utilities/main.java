@@ -12,6 +12,7 @@
 package Utilities;
 import Vistas.*;
 import AFN.AFN;
+import AFN.Estado;
 import java.util.LinkedList;
 public class main {
     public static void main(String[] args) {
@@ -21,6 +22,10 @@ public class main {
         //Leer AFN en archivos
         LinkedList<AFN> ConjuntoAFN = new LinkedList<> ();
         LinkedList<AFN> ConjuntoAFN_AFD = new LinkedList<> ();
+        //Agregar nodoInicial en Union Espeicial
+        Estado ini = new Estado();
+        AFN esp = new AFN(ini);
+        ConjuntoAFN_AFD.add(esp);
         //Invocar al MenuPrincipal
         MenuPrincipal m = new MenuPrincipal(ConjuntoAFN, ConjuntoAFN_AFD);
         m.setVisible(true);
