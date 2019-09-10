@@ -78,6 +78,10 @@ public class Estado {
         }
         return R;
     }
+    
+    public HashSet<Estado> ir_A(HashSet<Estado> S, char C){
+        return cerraduraEpsilon(mover(S,C));
+    }
 
     @Override
     public String toString() {
