@@ -27,6 +27,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         this.conjuntoAFN=conjuntoAFN;
     }
     
+    public MenuPrincipal(LinkedList<AFN> conjuntoAFN_AFD, int idProc) {
+        initComponents();
+        this.setTitle("Mc. Compiler v1.0");
+        this.conjuntoAFN_AFD=conjuntoAFN_AFD;
+    }
+    
     public MenuPrincipal(LinkedList<AFN> conjuntoAFN, LinkedList<AFN> conjuntoAFN_AFD) {
         initComponents();
         this.setTitle("Mc. Compiler v1.0");
@@ -186,8 +192,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
             System.out.println("Se necesita aplicar la UnionEspecial");
         }else{
             this.setVisible(false);
-            //AFN_to_AFD b = new AFN_to_AFD(conjuntoAFN_AFD, this);
-            //b.setVisible(true);
+            generarAFD b = new generarAFD(conjuntoAFN_AFD, this);
+            b.setVisible(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
