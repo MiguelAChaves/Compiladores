@@ -58,6 +58,26 @@ public class Estado {
         Transicion aux = new Transicion(s, estado);
         this.Transiciones.add(aux);
     }
+    
+    public HashSet<Estado> mover(Character C){
+        HashSet<Estado> R = new HashSet<>();
+        R.clear();
+        for(Transicion t: Transiciones){
+            if(t.getMinSimbolo() == C){
+                R.add(t.getEdoSiguiente());
+            }
+        }
+        return R;
+    }
+    
+    public HashSet<Estado> mover(HashSet<Estado> S, Character C){
+        HashSet<Estado> R = new HashSet<>();
+        R.clear();
+        for(Estado E: S){
+            R.addAll(E.mover(C));
+        }
+        return R;
+    }
 
     @Override
     public String toString() {
