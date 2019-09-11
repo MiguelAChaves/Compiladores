@@ -10,8 +10,13 @@ import AFN.Estado;
 import static AFN.Estado.cerraduraEpsilon;
 import static AFN.Estado.ir_A;
 import static AFN.Estado.mover;
+import Utilities.Conjunto;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -118,17 +123,55 @@ public class generarAFD extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void crearAFN() {
-        //Crear nuevo Automata
-        HashSet<Estado> S0 = new HashSet<Estado>();
-        HashSet<Estado> S1 = new HashSet<Estado>();
-        HashSet<Estado> S2 = new HashSet<Estado>();
+        int id=0, id_temp = -1;
         //Generar Cerradura Epsilon del estado Inicial
-        S0 = cerraduraEpsilon(conjuntoAFD.get(0).getEstadoInicial());
-        System.out.println(S0);
-        S1 = mover(S0, 'a');
-        System.out.println(S1);
-        S2 = cerraduraEpsilon(S1);
-        System.out.println(S2);
-        
+        Conjunto S_0 = new Conjunto(id, cerraduraEpsilon(conjuntoAFD.get(0).getEstadoInicial()));
+        //Se crea una Cola
+        Queue<Conjunto> SConjunto = new LinkedList<Conjunto>();
+        ArrayList<Conjunto> TotalConjunto = new ArrayList<Conjunto>();
+        //Se ingresa a la cola
+        SConjunto.offer(S_0);
+        TotalConjunto.add(S_0);
+        /* Mientras la cola no este vacia*/
+        while(!SConjunto.isEmpty()){
+            /* Se saca el elemento de la pila*/
+            Conjunto aux = SConjunto.poll();
+            System.out.println("------------- Estado " + aux.getId() + "---------------------");
+            /* Para cada elemento del alfabeto*/
+            for(Character x : conjuntoAFD.get(0).getAlfabeto()){
+                /* Se hace el ir_a del elemento*/
+                HashSet<Estado> auxEdo = new HashSet<Estado>();
+                auxEdo = ir_A(aux.getEstados(),x);
+                /* Si el Ir_A es vacio, no hay transicion -1*/
+                if(auxEdo.isEmpty()){
+                    System.out.println(x + "= -1");
+                }else{
+                    for(Conjunto c : TotalConjunto){
+                        if(c.getEstados() == auxEdo){
+                            id_temp = c.getId();
+                        }
+                    }
+                    if(id_temp != -1){
+                        /* Si el conjunto de estados existe, asignar id */
+                        System.out.println(x + "= " + id_temp);
+                    }else{
+                        /* Si no existe crear otro conjunto y agregarlo a la cola */
+                        id++;
+                        Conjunto S_n = new Conjunto(id, auxEdo);
+                        System.out.println(x + "= " + S_n.getId());
+                        SConjunto.offer(S_n);
+                        TotalConjunto.add(S_n);
+                    }
+                }
+            }
+            /* Se verifica si existe un estado final en la pila */
+            String token = "-1";
+            for(Estado e: aux.getEstados()){
+                if(e.isEdoAcep()){
+                    token = e.getToken();
+                }
+            }
+            System.out.println("Token = " + token);
+        }
     }
 }

@@ -6,6 +6,7 @@
 package Utilities;
 
 import AFN.Estado;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -20,6 +21,13 @@ public class Conjunto {
     public Conjunto(int id, HashSet<Estado> cargaEstados){
         this.id = id;
         Estados = cargaEstados;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public HashSet<Estado> getEstados() {
+        return Estados;
     }
     
 }
