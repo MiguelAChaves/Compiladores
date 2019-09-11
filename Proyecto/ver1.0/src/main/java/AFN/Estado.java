@@ -80,7 +80,7 @@ public class Estado {
         return R;
     }
     
-    public HashSet<Estado> cerraduraEpsilon(Estado e){
+    public static HashSet<Estado> cerraduraEpsilon(Estado e){
         HashSet<Estado> Cerr = new HashSet<Estado>();
         Stack<Estado> Pila = new Stack<Estado>();
         Pila.push(e);
@@ -98,7 +98,7 @@ public class Estado {
         return Cerr;
     }
     
-    public HashSet<Estado> cerraduraEpsilon(HashSet<Estado> Edos){
+    public static HashSet<Estado> cerraduraEpsilon(HashSet<Estado> Edos){
         HashSet<Estado> C = new HashSet<Estado>();
         C.clear();
         for(Estado e : Edos){

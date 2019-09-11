@@ -6,6 +6,9 @@
 package Vistas;
 
 import AFN.AFN;
+import AFN.Estado;
+import static AFN.Estado.cerraduraEpsilon;
+import java.util.HashSet;
 import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,6 +41,8 @@ public class generarAFD extends javax.swing.JFrame {
         }
         modelo.addColumn("Aceptación");
         modelo.addColumn("Token");
+        
+        crearAFN();
     }
 
     /**
@@ -109,4 +114,13 @@ public class generarAFD extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblAFN;
     // End of variables declaration//GEN-END:variables
+
+    private void crearAFN() {
+        //Crear nuevo Automata
+        HashSet<Estado> S0 = new HashSet<Estado>();
+        //Generar Cerradura Epsilon del estado Inicial
+        S0 = cerraduraEpsilon(conjuntoAFD.get(0).getEstadoInicial());
+        
+        System.out.println(S0);
+    }
 }

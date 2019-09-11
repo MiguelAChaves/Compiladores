@@ -69,6 +69,14 @@ public class AFN {
     public HashSet<Character> getAlfabeto() {
         return Alfabeto;
     }
+
+    public HashSet<Estado> getEstados() {
+        return Estados;
+    }
+
+    public Estado getEstadoInicial() {
+        return EstadoInicial;
+    }
     
     public void setConcat(AFN AFN2){
         for(Estado e: this.EstadosAceptacion){
