@@ -123,7 +123,7 @@ public class generarAFD extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void crearAFN() {
-        int id=0, id_temp = -1;
+        int id=0;
         //Generar Cerradura Epsilon del estado Inicial
         Conjunto S_0 = new Conjunto(id, cerraduraEpsilon(conjuntoAFD.get(0).getEstadoInicial()));
         //Se crea una Cola
@@ -139,6 +139,7 @@ public class generarAFD extends javax.swing.JFrame {
             System.out.println("------------- Estado " + aux.getId() + "---------------------");
             /* Para cada elemento del alfabeto*/
             for(Character x : conjuntoAFD.get(0).getAlfabeto()){
+                int id_temp = -1;
                 /* Se hace el ir_a del elemento*/
                 HashSet<Estado> auxEdo = new HashSet<Estado>();
                 auxEdo = ir_A(aux.getEstados(),x);
@@ -147,7 +148,7 @@ public class generarAFD extends javax.swing.JFrame {
                     System.out.println(x + "= -1");
                 }else{
                     for(Conjunto c : TotalConjunto){
-                        if(c.getEstados() == auxEdo){
+                        if(auxEdo.containsAll(c.getEstados())){
                             id_temp = c.getId();
                         }
                     }
@@ -167,6 +168,7 @@ public class generarAFD extends javax.swing.JFrame {
             /* Se verifica si existe un estado final en la pila */
             String token = "-1";
             for(Estado e: aux.getEstados()){
+                System.out.println(e);
                 if(e.isEdoAcep()){
                     token = e.getToken();
                 }
