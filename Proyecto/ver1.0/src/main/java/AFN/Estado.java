@@ -13,6 +13,7 @@
 package AFN;
 
 import java.util.HashSet;
+import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Estado {
@@ -77,6 +78,33 @@ public class Estado {
             R.addAll(E.mover(C));
         }
         return R;
+    }
+    
+    public HashSet<Estado> cerraduraEpsilon(Estado e){
+        HashSet<Estado> Cerr = new HashSet<Estado>();
+        Stack<Estado> Pila = new Stack<Estado>();
+        Pila.push(e);
+        
+        while(!Pila.isEmpty()){
+            e = Pila.pop();
+            if(!Cerr.contains(e)){
+                Cerr.add(e);
+                for(Transicion t : e.Transiciones){
+                    if(t.maxSimbolo == 'ε')
+                        Pila.push(t.getEdoSiguiente());
+                }
+            }
+        }
+        return Cerr;
+    }
+    
+    public HashSet<Estado> cerraduraEpsilon(HashSet<Estado> Edos){
+        HashSet<Estado> C = new HashSet<Estado>();
+        C.clear();
+        for(Estado e : Edos){
+            C.addAll(cerraduraEpsilon(e));
+        }
+        return C;
     }
     
     public HashSet<Estado> ir_A(HashSet<Estado> S, char C){
