@@ -9,6 +9,7 @@ import AFN.AFN;
 import AFN.Estado;
 import static AFN.Estado.cerraduraEpsilon;
 import static AFN.Estado.ir_A;
+import static AFN.Estado.mover;
 import java.util.HashSet;
 import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
@@ -120,10 +121,14 @@ public class generarAFD extends javax.swing.JFrame {
         //Crear nuevo Automata
         HashSet<Estado> S0 = new HashSet<Estado>();
         HashSet<Estado> S1 = new HashSet<Estado>();
+        HashSet<Estado> S2 = new HashSet<Estado>();
         //Generar Cerradura Epsilon del estado Inicial
         S0 = cerraduraEpsilon(conjuntoAFD.get(0).getEstadoInicial());
         System.out.println(S0);
-        S1 = ir_A(S0, 'b');
+        S1 = mover(S0, 'a');
         System.out.println(S1);
+        S2 = cerraduraEpsilon(S1);
+        System.out.println(S2);
+        
     }
 }

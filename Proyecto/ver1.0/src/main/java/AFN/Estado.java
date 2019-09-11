@@ -22,7 +22,7 @@ public class Estado {
     private int id;
     boolean edoAcep;
     private String token;
-    static public HashSet<Transicion> Transiciones;
+    public HashSet<Transicion> Transiciones;
     
     public Estado(){
         id = nextId.incrementAndGet();
@@ -67,7 +67,7 @@ public class Estado {
     
     
     
-    public static HashSet<Estado> mover(Character C){
+    public HashSet<Estado> mover(Character C){
         HashSet<Estado> R = new HashSet<>();
         R.clear();
         for (Transicion t : Transiciones) {
