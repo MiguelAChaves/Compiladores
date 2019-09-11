@@ -168,7 +168,6 @@ public class generarAFD extends javax.swing.JFrame {
             /* Se verifica si existe un estado final en la pila */
             String token = "-1";
             for(Estado e: aux.getEstados()){
-                System.out.println(e);
                 if(e.isEdoAcep()){
                     token = e.getToken();
                 }
