@@ -13,6 +13,7 @@
 package AFN;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -21,7 +22,7 @@ public class Estado {
     private int id;
     boolean edoAcep;
     private String token;
-    public HashSet<Transicion> Transiciones;
+    static public HashSet<Transicion> Transiciones;
     
     public Estado(){
         id = nextId.incrementAndGet();
@@ -59,11 +60,17 @@ public class Estado {
         Transicion aux = new Transicion(s, estado);
         this.Transiciones.add(aux);
     }
+
+    public HashSet<Transicion> getTransiciones() {
+        return Transiciones;
+    }
     
-    public HashSet<Estado> mover(Character C){
+    
+    
+    public static HashSet<Estado> mover(Character C){
         HashSet<Estado> R = new HashSet<>();
         R.clear();
-        for(Transicion t: Transiciones){
+        for (Transicion t : Transiciones) {
             if(t.getMinSimbolo() == C){
                 R.add(t.getEdoSiguiente());
             }
@@ -71,7 +78,7 @@ public class Estado {
         return R;
     }
     
-    public HashSet<Estado> mover(HashSet<Estado> S, Character C){
+    public static HashSet<Estado> mover(HashSet<Estado> S, Character C){
         HashSet<Estado> R = new HashSet<>();
         R.clear();
         for(Estado E: S){
@@ -107,7 +114,7 @@ public class Estado {
         return C;
     }
     
-    public HashSet<Estado> ir_A(HashSet<Estado> S, char C){
+    public static HashSet<Estado> ir_A(HashSet<Estado> S, Character C){
         return cerraduraEpsilon(mover(S,C));
     }
 
