@@ -11,10 +11,11 @@
  */
 package AFN;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class AFN {
+public class AFN implements Serializable{
     
     /**
      * Establecimiento de constantes
