@@ -6,6 +6,7 @@
 package Vistas;
 
 import AFN.AFN;
+import AFN.Estado;
 import java.util.LinkedList;
 
 /**
@@ -29,6 +30,9 @@ public class especialAFN extends javax.swing.JFrame {
         for(int i=0; i<conjuntoAFN.size(); i++){
             cbAut.addItem("Autómata " + i);
         }
+        for(int i=0; i<conjuntoAFD.size(); i++){
+            cbAut1.addItem("Autómata " + i);
+        }
     }
 
     /**
@@ -47,7 +51,7 @@ public class especialAFN extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbAut1 = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,6 +77,11 @@ public class especialAFN extends javax.swing.JFrame {
         jLabel3.setText("Automáta Destino");
 
         jButton3.setText("Crear Nuevo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,7 +97,7 @@ public class especialAFN extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cbAut1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
@@ -114,7 +123,7 @@ public class especialAFN extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbAut1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3)
                 .addGap(24, 24, 24)
@@ -133,7 +142,7 @@ public class especialAFN extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int x = 0;
+        int x = 0, y = -1;
         String token = numToken.getText();
         if(cbAut.getSelectedItem()!=null){
             for(int n=0; n<conjuntoAFN.size();n++){
@@ -141,18 +150,39 @@ public class especialAFN extends javax.swing.JFrame {
                    x = n;
             }
         }
-        conjuntoAFD.get(0).setEspecial(conjuntoAFN.get(x), token);
-        System.out.println(conjuntoAFD.get(0).toString());
+        
+        if(cbAut1.getSelectedItem()!=null){
+            for(int n=0; n<conjuntoAFD.size();n++){
+                if(cbAut1.getSelectedItem().equals("Autómata " + n))
+                   y = n;
+            }
+        }
+        
+        conjuntoAFD.get(y).setEspecial(conjuntoAFN.get(x), token);
+        conjuntoAFN.remove(x);
+        System.out.println(conjuntoAFD.get(y).toString());
         this.setVisible(false);
         m.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Crea automata vacio y lo manda a conjuntoAFD
+        //Agregar nodoInicial en Union Espeicial
+        Estado ini = new Estado();
+        AFN esp = new AFN(ini);
+        conjuntoAFD.add(esp);
+        cbAut1.removeAllItems();
+        for(int i=0; i<conjuntoAFD.size(); i++){
+            cbAut1.addItem("Autómata " + i);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbAut;
+    private javax.swing.JComboBox<String> cbAut1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
