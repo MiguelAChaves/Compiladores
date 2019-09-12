@@ -36,7 +36,7 @@ public class generarAFD extends javax.swing.JFrame {
      */
     public generarAFD(LinkedList<AFN> conjuntoAFD, MenuPrincipal m) {
         initComponents();
-        this.setTitle("Mostrar AFN");
+        this.setTitle("GenerarAFD");
         this.m = m;
         this.conjuntoAFD = conjuntoAFD;
         /* Se llena el comboBox */
