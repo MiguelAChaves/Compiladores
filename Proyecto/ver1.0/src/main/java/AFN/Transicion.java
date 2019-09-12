@@ -10,7 +10,9 @@
  */
 package AFN;
 
-public class Transicion {
+import java.io.Serializable;
+
+public class Transicion implements Serializable{
     private final Estado edoSiguiente;
     char minSimbolo;
     char maxSimbolo;

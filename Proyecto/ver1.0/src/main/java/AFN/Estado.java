@@ -12,12 +12,13 @@
  */
 package AFN;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Estado {
+public class Estado implements Serializable{
     static AtomicInteger nextId = new AtomicInteger();
     private int id;
     boolean edoAcep;
