@@ -39,17 +39,11 @@ public class generarAFD extends javax.swing.JFrame {
         this.setTitle("Mostrar AFN");
         this.m = m;
         this.conjuntoAFD = conjuntoAFD;
-        /*Inicialización de la tabla*/
-        modelo = new DefaultTableModel();
-        tblAFN.setModel(modelo);
-        modelo.addColumn("Estado");
-        for(Character x : conjuntoAFD.get(0).getAlfabeto()){
-            modelo.addColumn(x);
+        /* Se llena el comboBox */
+        for(int i=0; i<conjuntoAFD.size(); i++){
+            cbAut_AFD.addItem("Autómata " + i);
         }
-        modelo.addColumn("Aceptación");
-        modelo.addColumn("Token");
         
-        crearAFN();
     }
 
     /**
@@ -87,6 +81,12 @@ public class generarAFD extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblAFN);
 
         jLabel1.setText("Automata a Convertir");
+
+        cbAut_AFD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAut_AFDActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,6 +130,28 @@ public class generarAFD extends javax.swing.JFrame {
         m.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void cbAut_AFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAut_AFDActionPerformed
+        int i = -1;
+        if(cbAut_AFD.getSelectedItem()!=null){
+            for(int n=0; n<conjuntoAFD.size();n++){
+                if(cbAut_AFD.getSelectedItem().equals("Autómata " + n))
+                    i = n;
+            }
+        }
+        
+        modelo = new DefaultTableModel();
+        tblAFN.setModel(modelo);
+        modelo.addColumn("Estado");
+        for(Character x : conjuntoAFD.get(i).getAlfabeto()){
+            modelo.addColumn(x);
+        }
+        modelo.addColumn("Aceptación");
+        modelo.addColumn("Token");
+        
+        crearAFN(i);
+        
+    }//GEN-LAST:event_cbAut_AFDActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbAut;
     private javax.swing.JComboBox<String> cbAut1;
@@ -147,10 +169,10 @@ public class generarAFD extends javax.swing.JFrame {
     private javax.swing.JTable tblAFN;
     // End of variables declaration//GEN-END:variables
 
-    private void crearAFN() {
+    private void crearAFN(int i) {
         int id=0;
         //Generar Cerradura Epsilon del estado Inicial
-        Conjunto S_0 = new Conjunto(id, cerraduraEpsilon(conjuntoAFD.get(0).getEstadoInicial()));
+        Conjunto S_0 = new Conjunto(id, cerraduraEpsilon(conjuntoAFD.get(i).getEstadoInicial()));
         //Se crea una Cola
         Queue<Conjunto> SConjunto = new LinkedList<Conjunto>();
         ArrayList<Conjunto> TotalConjunto = new ArrayList<Conjunto>();
@@ -163,7 +185,7 @@ public class generarAFD extends javax.swing.JFrame {
             Conjunto aux = SConjunto.poll();
             System.out.println("------------- Estado " + aux.getId() + "---------------------");
             /* Para cada elemento del alfabeto*/
-            for(Character x : conjuntoAFD.get(0).getAlfabeto()){
+            for(Character x : conjuntoAFD.get(i).getAlfabeto()){
                 int id_temp = -1;
                 /* Se hace el ir_a del elemento*/
                 HashSet<Estado> auxEdo = new HashSet<Estado>();
