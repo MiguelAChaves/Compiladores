@@ -144,8 +144,13 @@ public class unionAFN extends javax.swing.JFrame {
         }
         AFN newAux = new AFN();
         newAux = setUnion(conjuntoAFN.get(x), conjuntoAFN.get(y));
-        conjuntoAFN.remove(y);
-        conjuntoAFN.remove(x);
+        if(x>y){
+            conjuntoAFN.remove(x);
+            conjuntoAFN.remove(y);
+        }else{
+            conjuntoAFN.remove(y);
+            conjuntoAFN.remove(x);
+        }
         conjuntoAFN.add(newAux);
         this.setVisible(false);
         m.setVisible(true);
