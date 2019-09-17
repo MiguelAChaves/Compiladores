@@ -15,11 +15,27 @@ import java.util.HashSet;
 public class AFD {
     public HashSet<Character> Alfabeto;
     public ArrayList<Estado> Estados;
-    public int numFilas, numColumn;
-    
-    public AFD(HashSet<Character> Alfabeto){
-        this.Alfabeto = new HashSet<Character>();
-        this.Alfabeto.clear();
-        this.Alfabeto.addAll(Alfabeto);
+
+    public AFD() {
+        this.Alfabeto = new HashSet<>();
+        this.Estados = new ArrayList<>();
     }
+
+    public HashSet<Character> getAlfabeto() {
+        return Alfabeto;
+    }
+
+    public void setAlfabeto(HashSet<Character> Alfabeto) {
+        this.Alfabeto = Alfabeto;
+    }
+
+    public ArrayList<Estado> getEstados() {
+        return Estados;
+    }
+
+    public void setEstados(ArrayList<Estado> Estados) {
+        this.Estados = Estados;
+    }
+    
+    
 }
