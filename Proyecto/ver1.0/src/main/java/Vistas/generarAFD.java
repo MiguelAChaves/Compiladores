@@ -9,14 +9,11 @@ import AFN.AFN;
 import AFN.Estado;
 import static AFN.Estado.cerraduraEpsilon;
 import static AFN.Estado.ir_A;
-import static AFN.Estado.mover;
 import Utilities.Conjunto;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.table.DefaultTableModel;
 
 /**
