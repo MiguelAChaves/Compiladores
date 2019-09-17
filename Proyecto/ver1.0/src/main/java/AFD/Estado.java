@@ -5,18 +5,27 @@
  */
 package AFD;
 
+import AFN.Transicion;
+import java.util.LinkedList;
+
 /**
  *
  * @author Migue
  */
 public class Estado {
     public int id;
-    public int[] corrAlfabeto_Estado;
+    private LinkedList<Transicion> transiciones;
     public String tokenAcep;
+    
+    public Estado(){
+        this.id = -1;
+        transiciones = new LinkedList<> ();
+        tokenAcep = "";
+    }
 
-    public Estado(int id, int[] corrAlfabeto_Estado, String tokenAcep) {
+    public Estado(int id, LinkedList<Transicion> transiciones, String tokenAcep) {
         this.id = id;
-        this.corrAlfabeto_Estado = corrAlfabeto_Estado;
+        this.transiciones = transiciones;
         this.tokenAcep = tokenAcep;
     }
 }
