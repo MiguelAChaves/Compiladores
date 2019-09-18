@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -152,7 +153,17 @@ public class generarAFD extends javax.swing.JFrame {
         modelo.addColumn("Token");
         
         try {
-            crearAFN(i);
+            ArrayList<Vector> tabla = crearAFN(i);
+            for(int j = 0; j < tabla.size(); j++){
+                //modelo.addRow(tabla.get(j));
+                Vector fila = tabla.get(j);
+                if(fila.get(fila.size() - 1) == "-1"){
+                    fila.removeElementAt(fila.lastIndexOf(fila.lastElement()));
+                    fila.add("NO");
+                    fila.add("-1");
+                }
+                modelo.addRow(fila);
+            }
         } catch (IOException ex) {
             Logger.getLogger(generarAFD.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -176,7 +187,8 @@ public class generarAFD extends javax.swing.JFrame {
     private javax.swing.JTable tblAFN;
     // End of variables declaration//GEN-END:variables
 
-    private void crearAFN(int i) throws IOException {
+    private ArrayList<Vector> crearAFN(int i) throws IOException {
+        ArrayList<Vector> tabla = new ArrayList<>();
         AFD nuevoAFD = new AFD();
         nuevoAFD.setAlfabeto(conjuntoAFD.get(i).getAlfabeto());
         int id=0;
@@ -190,10 +202,13 @@ public class generarAFD extends javax.swing.JFrame {
         TotalConjunto.add(S_0);
         /* Mientras la cola no este vacia*/
         while(!SConjunto.isEmpty()){
+            //Se pone declara un Vector para crear las filas de la tabla
+            Vector filas = new Vector();
             /* Se saca el elemento de la pila*/
             Conjunto aux = SConjunto.poll();
             String lineaAFD = "";
             System.out.println("------------- Estado " + aux.getId() + "---------------------");
+            filas.add("Estado: " + aux.getId());
             /* Para cada elemento del alfabeto*/
             for(Character x : conjuntoAFD.get(i).getAlfabeto()){
                 int id_temp = -1;
@@ -204,6 +219,7 @@ public class generarAFD extends javax.swing.JFrame {
                 if(auxEdo.isEmpty()){
                     System.out.println(x + "= -1");
                     lineaAFD+="-1"+"~";
+                    filas.add("-1");
                 }else{
                     for(Conjunto c : TotalConjunto){
                         if(auxEdo.containsAll(c.getEstados())){
@@ -214,12 +230,14 @@ public class generarAFD extends javax.swing.JFrame {
                         /* Si el conjunto de estados existe, asignar id */
                         System.out.println(x + "= " + id_temp);
                         lineaAFD+=id_temp+"~";
+                        filas.add(id_temp + "");
                     }else{
                         /* Si no existe crear otro conjunto y agregarlo a la cola */
                         id++;
                         Conjunto S_n = new Conjunto(id, auxEdo);
                         System.out.println(x + "= " + S_n.getId());
                         lineaAFD+=S_n.getId()+"~";
+                        filas.add(S_n.getId());
                         SConjunto.offer(S_n);
                         TotalConjunto.add(S_n);
                     }
@@ -227,16 +245,22 @@ public class generarAFD extends javax.swing.JFrame {
             }
             /* Se verifica si existe un estado final en la pila */
             String token = "null";
+            String aceptacion = "NO";
             for(Estado e: aux.getEstados()){
                 if(e.isEdoAcep()){
                     token = e.getToken();
+                    aceptacion = "SI";
                 }
             }
+            filas.add(aceptacion);
             System.out.println("Token = " + token);
             lineaAFD+=token;
             nuevoAFD.addEstado(lineaAFD);
+            filas.add(token);
+            tabla.add(filas);
         }
         escribirAutomataArchivo(nuevoAFD,"pruebaEscrituraAutomata.txt","~");
+        return tabla;
     }
     
     public static void escribirAutomataArchivo(AFD afd,String rutaArchivo,String separador) throws IOException{
