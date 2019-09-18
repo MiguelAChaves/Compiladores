@@ -244,7 +244,7 @@ public class generarAFD extends javax.swing.JFrame {
                 }
             }
             /* Se verifica si existe un estado final en la pila */
-            String token = "null";
+            String token = "-1";
             String aceptacion = "NO";
             for(Estado e: aux.getEstados()){
                 if(e.isEdoAcep()){
@@ -256,7 +256,7 @@ public class generarAFD extends javax.swing.JFrame {
             System.out.println("Token = " + token);
             lineaAFD+=token;
             nuevoAFD.addEstado(lineaAFD);
-            filas.add(token);
+            filas.add(token + "");
             tabla.add(filas);
         }
         escribirAutomataArchivo(nuevoAFD,"pruebaEscrituraAutomata.txt","~");
