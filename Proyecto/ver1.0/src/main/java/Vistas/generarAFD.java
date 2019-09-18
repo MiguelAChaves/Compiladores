@@ -5,15 +5,21 @@
  */
 package Vistas;
 
+import AFD.AFD;
 import AFN.AFN;
 import AFN.Estado;
 import static AFN.Estado.cerraduraEpsilon;
 import static AFN.Estado.ir_A;
 import Utilities.Conjunto;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -145,7 +151,11 @@ public class generarAFD extends javax.swing.JFrame {
         modelo.addColumn("Aceptación");
         modelo.addColumn("Token");
         
-        crearAFN(i);
+        try {
+            crearAFN(i);
+        } catch (IOException ex) {
+            Logger.getLogger(generarAFD.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_cbAut_AFDActionPerformed
 
@@ -166,7 +176,9 @@ public class generarAFD extends javax.swing.JFrame {
     private javax.swing.JTable tblAFN;
     // End of variables declaration//GEN-END:variables
 
-    private void crearAFN(int i) {
+    private void crearAFN(int i) throws IOException {
+        AFD nuevoAFD = new AFD();
+        nuevoAFD.setAlfabeto(conjuntoAFD.get(i).getAlfabeto());
         int id=0;
         //Generar Cerradura Epsilon del estado Inicial
         Conjunto S_0 = new Conjunto(id, cerraduraEpsilon(conjuntoAFD.get(i).getEstadoInicial()));
@@ -180,6 +192,7 @@ public class generarAFD extends javax.swing.JFrame {
         while(!SConjunto.isEmpty()){
             /* Se saca el elemento de la pila*/
             Conjunto aux = SConjunto.poll();
+            String lineaAFD = "";
             System.out.println("------------- Estado " + aux.getId() + "---------------------");
             /* Para cada elemento del alfabeto*/
             for(Character x : conjuntoAFD.get(i).getAlfabeto()){
@@ -190,6 +203,7 @@ public class generarAFD extends javax.swing.JFrame {
                 /* Si el Ir_A es vacio, no hay transicion -1*/
                 if(auxEdo.isEmpty()){
                     System.out.println(x + "= -1");
+                    lineaAFD+="-1"+"~";
                 }else{
                     for(Conjunto c : TotalConjunto){
                         if(auxEdo.containsAll(c.getEstados())){
@@ -199,24 +213,48 @@ public class generarAFD extends javax.swing.JFrame {
                     if(id_temp != -1){
                         /* Si el conjunto de estados existe, asignar id */
                         System.out.println(x + "= " + id_temp);
+                        lineaAFD+=id_temp+"~";
                     }else{
                         /* Si no existe crear otro conjunto y agregarlo a la cola */
                         id++;
                         Conjunto S_n = new Conjunto(id, auxEdo);
                         System.out.println(x + "= " + S_n.getId());
+                        lineaAFD+=S_n.getId()+"~";
                         SConjunto.offer(S_n);
                         TotalConjunto.add(S_n);
                     }
                 }
             }
             /* Se verifica si existe un estado final en la pila */
-            String token = "-1";
+            String token = "null";
             for(Estado e: aux.getEstados()){
                 if(e.isEdoAcep()){
                     token = e.getToken();
                 }
             }
             System.out.println("Token = " + token);
+            lineaAFD+=token;
+            nuevoAFD.addEstado(lineaAFD);
         }
+        escribirAutomataArchivo(nuevoAFD,"pruebaEscrituraAutomata.txt","~");
     }
+    
+    public static void escribirAutomataArchivo(AFD afd,String rutaArchivo,String separador) throws IOException{
+	    BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo));
+	    //En la primera linea del archivo escribimos el separador que vamos a utilizar para despues poder leer el archivo sin problemas
+	    writer.write(separador+"\n");
+	    //Despues esribimos el alfabeto
+	    String cadenaAlfabeto = "";
+	    for(Character simbolo:afd.getAlfabeto()) {
+	    	cadenaAlfabeto+=simbolo+separador;
+		}
+	    cadenaAlfabeto=cadenaAlfabeto.substring(0,cadenaAlfabeto.length()-1);
+	    writer.write(cadenaAlfabeto+"\n");
+	    //Finalmente escribimos la representacion tabular del automata
+	    for(String x: afd.Estados){
+                writer.write(x+"\n");
+            }
+	    //Cerramos el archivo
+	    writer.close();
+	}
 }
