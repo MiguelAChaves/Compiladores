@@ -14,7 +14,7 @@ import java.util.HashSet;
  */
 public class AFD {
     public HashSet<Character> Alfabeto;
-    public ArrayList<Estado> Estados;
+    public ArrayList<String> Estados;
 
     public AFD() {
         this.Alfabeto = new HashSet<>();
@@ -29,13 +29,16 @@ public class AFD {
         this.Alfabeto = Alfabeto;
     }
 
-    public ArrayList<Estado> getEstados() {
+    public ArrayList<String> getEstados() {
         return Estados;
     }
 
-    public void setEstados(ArrayList<Estado> Estados) {
+    public void setEstados(ArrayList<String> Estados) {
         this.Estados = Estados;
     }
     
-    
+    public void addEstado(String e){
+        this.Estados.add(e);
+    }
+
 }
