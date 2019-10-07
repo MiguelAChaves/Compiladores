@@ -159,13 +159,13 @@ public class AutomataDeterminista extends Automata{
 	 * @return AutomataDeterminista - Automata determinista creado a partir del archivo
 	 * */
 	public static AutomataDeterminista leerAutomataArchivo(String rutaArchivo) throws IOException{
-            LinkedList<Character> alfabeto = new LinkedList<Character>();
-            LinkedList<String[]> representacionTabular = new LinkedList<String[]>();
-            FileReader fileReader = new FileReader(rutaArchivo);
-            BufferedReader buferedReader = new BufferedReader(fileReader);
-            int linea = 0;
-            String cadenaLeida;
-            String separador = "";
+		LinkedList<Character> alfabeto = new LinkedList<Character>();
+		LinkedList<String[]> representacionTabular = new LinkedList<String[]>();
+        FileReader fileReader = new FileReader(rutaArchivo);
+        BufferedReader buferedReader = new BufferedReader(fileReader);
+        int linea = 0;
+        String cadenaLeida;
+        String separador = "";
         while((cadenaLeida = buferedReader.readLine())!=null) {
         	if(linea == 0) {
         		separador = cadenaLeida;

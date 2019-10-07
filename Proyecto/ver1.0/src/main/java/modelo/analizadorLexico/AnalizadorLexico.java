@@ -9,9 +9,6 @@ import modelo.analizadorLexico.automatas.AutomataNoDeterminista;
 import modelo.analizadorLexico.automatas.Estado;
 import modelo.analizadorLexico.automatas.Transicion;
 
-/**
- * @author millocorona
- * */
 
 public class AnalizadorLexico implements Serializable{
 	

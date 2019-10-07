@@ -17,8 +17,8 @@ public class AnalizadorSintacticoExpReg {
 	private LinkedList <AutomataNoDeterminista> automatas =new LinkedList<AutomataNoDeterminista>();
 
 	public AnalizadorSintacticoExpReg(String expresionRegular) {
-			creaAnalizadorLexicoExpresionesRegulares();
-			analizadorLexico.setCadenaAnalizar(expresionRegular);
+            creaAnalizadorLexicoExpresionesRegulares();
+            analizadorLexico.setCadenaAnalizar(expresionRegular);
 	}
 	
 	public AutomataNoDeterminista creaAutomataNoDeterministaPorExpReg() {
@@ -122,17 +122,6 @@ public class AnalizadorSintacticoExpReg {
 				}
 				return false;
 			case TokensAnalizadorLexicoExpReg.SIMBOLO:
-				/*if(analizadorLexico.getLexemaActual().startsWith("\\\\")) {
-					if(analizadorLexico.getLexemaActual().length() == 3) {
-						AutomataNoDeterminista nuevoAutomata =new AutomataNoDeterminista('\\',null);
-						nuevoAutomata = nuevoAutomata.concatenarAutomata(new AutomataNoDeterminista(analizadorLexico.getLexemaActual().charAt(2),null)); //Caso donde se desea incluir el caracter de escape dentro del nuavo analizador lexico es decir \ algo
-						automatas.add(nuevoAutomata);
-					}else {
-						AutomataNoDeterminista nuevoAutomata =new AutomataNoDeterminista(analizadorLexico.getLexemaActual().charAt(1),null); //Caso donde se desea agregar \ unicamente
-						automatas.add(nuevoAutomata);
-					}
-					
-				}else*/
 				if(analizadorLexico.getLexemaActual().startsWith("\\")) {
 					AutomataNoDeterminista nuevoAutomata =new AutomataNoDeterminista(analizadorLexico.getLexemaActual().charAt(1),null);
 					automatas.add(nuevoAutomata);
@@ -178,13 +167,13 @@ public class AnalizadorSintacticoExpReg {
 	}
 	
 	public static AutomataDeterminista crearAFDAnalizadorLexicoConExpRegArchivo(String rutaArchivo) throws IOException{
-		LinkedList<AutomataNoDeterminista> automatasLeidosArchivo = new LinkedList<AutomataNoDeterminista>();
-		FileReader fileReader = new FileReader(rutaArchivo);
-        BufferedReader buferedReader = new BufferedReader(fileReader);
-        int linea = 0;
-        String cadenaLeida;
-        String separador = "";
-        while((cadenaLeida = buferedReader.readLine())!=null) {
+            LinkedList<AutomataNoDeterminista> automatasLeidosArchivo = new LinkedList<AutomataNoDeterminista>();
+            FileReader fileReader = new FileReader(rutaArchivo);
+            BufferedReader buferedReader = new BufferedReader(fileReader);
+            int linea = 0;
+            String cadenaLeida;
+            String separador = "";
+            while((cadenaLeida = buferedReader.readLine())!=null) {
         	if(linea == 0) {
         		separador = cadenaLeida;
         	}else {
@@ -196,9 +185,9 @@ public class AnalizadorSintacticoExpReg {
         		automatasLeidosArchivo.add(AFNExpresionRegular);
         	}
         	linea++;
-        }
-        buferedReader.close();
-        return new AutomataDeterminista(AutomataNoDeterminista.unirAutomatasAnalizadorLexico(automatasLeidosArchivo));
+            }
+            buferedReader.close();
+            return new AutomataDeterminista(AutomataNoDeterminista.unirAutomatasAnalizadorLexico(automatasLeidosArchivo));
 	}
 	
 	private void creaAnalizadorLexicoExpresionesRegulares() {
