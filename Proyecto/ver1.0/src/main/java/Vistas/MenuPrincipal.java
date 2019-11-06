@@ -82,7 +82,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jButton8 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtPal = new javax.swing.JTextField();
         jButton9 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -280,19 +280,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addComponent(jSeparator4))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton7)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jButton7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(61, 61, 61))
         );
         layout.setVerticalGroup(
@@ -350,7 +350,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton9))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -486,11 +486,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
             AutomataDeterminista automataAnalizadorLexico = AnalizadorSintacticoExpReg.crearAFDAnalizadorLexicoConExpRegArchivo("pruebaEscrituraRegexLL1.txt");
             analizadorLexicoLL_1 = new AnalizadorLexico(automataAnalizadorLexico);
             // Cargar Gramatica LL(1)
-            String gramatica="S -> a A B C ;"
-                            +"A -> a | b b D ;"
-                            +"B -> a |∈ ;"
-                            +"C -> b |∈ ;"
-                            +"D -> c |∈ ;";
+            String gramatica="E -> T Ep ;"
+                            +"Ep -> + T Ep | - T Ep |∈ ;"
+                            +"T -> F Tp ;"
+                            +"Tp -> * F Tp | / F Tp |∈ ;"
+                            +"F -> ( E ) | NUM ;";
             AnalizadorSintacticoGramaticas analizadorGramaticas = new AnalizadorSintacticoGramaticas(gramatica);
             gramaticaGenerada = analizadorGramaticas.generaGramatica();
             for(List<String> regla:gramaticaGenerada) {
@@ -508,7 +508,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        // Validad x LL(1)
+        boolean cadenaValida = analizadorLL1.analizaCadena(txtPal.getText());
+	if(cadenaValida) {
+            System.out.println("Cadena valida");
+	}else {
+            System.out.println("Cadena invalida");
+        }
+        txtPalabra.setText("");
     }//GEN-LAST:event_jButton9ActionPerformed
 
 
@@ -544,7 +551,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtPal;
     private javax.swing.JTextField txtPalabra;
     // End of variables declaration//GEN-END:variables
 }

@@ -50,7 +50,7 @@ public class AnalizadorLL1 extends AnalizadorSintactico{
                 ladoDerecho += reglasGramaticales.get(i).get(s);
             }
             for (String simbolo : conjuntoResultanteFirst) {
-                tablaAnalisisSintactico.get(simbolosNoTerminales.indexOf(reglasGramaticales.get(i).get(0)))[simbolosTerminales.indexOf(simbolo)] = String.valueOf(i + 1) + "-" + ladoDerecho;
+                tablaAnalisisSintactico.get(simbolosNoTerminales.indexOf(reglasGramaticales.get(i).get(0)))[simbolosTerminales.indexOf(simbolo)] = String.valueOf(i);
             }
         }
     }
