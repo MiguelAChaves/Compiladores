@@ -34,19 +34,23 @@ public class AnalizadorLL1 extends AnalizadorSintactico{
         //Llenamos la tabla
         for (int i = 0; i < reglasGramaticales.size(); i++) {
             //Calculamos el first de la regla gramatical actual
-        	String ladoDerechoRegla[] = new String[reglasGramaticales.get(i).size()-1];
-        	for(int j = 0;j<ladoDerechoRegla.length;j++) {
-        		ladoDerechoRegla[j] = reglasGramaticales.get(i).get(j+1);
-        	}
+            String ladoDerechoRegla[] = new String[reglasGramaticales.get(i).size()-1];
+            for(int j = 0;j<ladoDerechoRegla.length;j++) {
+                ladoDerechoRegla[j] = reglasGramaticales.get(i).get(j+1);
+            }
             HashSet<String> conjuntoResultanteFirst = calculaFirst(ladoDerechoRegla);
             if (conjuntoResultanteFirst.contains(EPSILON)) {
             	HashSet<String> resultadoFollow = calculaFollow(reglasGramaticales.get(i).get(0));
-            	System.out.println("SImbolo : "+reglasGramaticales.get(i).get(0)+" Follow : "+Arrays.toString(resultadoFollow.toArray()));
+            	System.out.println("Simbolo : "+reglasGramaticales.get(i).get(0)+" Follow : "+Arrays.toString(resultadoFollow.toArray()));
                 conjuntoResultanteFirst.addAll(resultadoFollow);
                 conjuntoResultanteFirst.remove(EPSILON);
             }
+            String ladoDerecho = "";
+            for(int s=1; s < reglasGramaticales.get(i).size(); s++){
+                ladoDerecho += reglasGramaticales.get(i).get(s);
+            }
             for (String simbolo : conjuntoResultanteFirst) {
-                tablaAnalisisSintactico.get(simbolosNoTerminales.indexOf(reglasGramaticales.get(i).get(0)))[simbolosTerminales.indexOf(simbolo)] = String.valueOf(i);
+                tablaAnalisisSintactico.get(simbolosNoTerminales.indexOf(reglasGramaticales.get(i).get(0)))[simbolosTerminales.indexOf(simbolo)] = String.valueOf(i + 1) + "-" + ladoDerecho;
             }
         }
     }
